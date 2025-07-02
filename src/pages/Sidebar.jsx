@@ -55,6 +55,10 @@ const Sidebar = ({ open, onToggle }) => {
 
   const handleItemClick = (itemId) => {
     setActiveItem(itemId);
+    // Open sidebar if it's collapsed when clicking menu items
+    if (isCollapsed) {
+      onToggle();
+    }
   };
 
   const menuItems = [

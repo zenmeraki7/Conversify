@@ -9,7 +9,7 @@ const HomePage = () => {
   return (
     <div style={{ display: 'flex', minHeight: '100vh', margin: 0, padding: 0,backgroundColor: '#0a0a0a' }}>
       {/* Sidebar */}
-            <Sidebar open={sidebarOpen} onToggle={() => setSidebarOpen(!sidebarOpen)} />
+      <Sidebar open={sidebarOpen} onToggle={() => setSidebarOpen(!sidebarOpen)} />
 
 
       {/* Main Content */}
