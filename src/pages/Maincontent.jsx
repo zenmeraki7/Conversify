@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { UploadIcon, DocumentIcon, PasteIcon, AIIcon, ExpandIcon } from './Icons';
 
 const drawerWidth = 280;
+const collapsedDrawerWidth = 64; // Add this constant
 
 const MainContent = ({ sidebarOpen }) => {
   const [inputText, setInputText] = useState('');
@@ -13,11 +14,15 @@ const MainContent = ({ sidebarOpen }) => {
   const modes = ['Enhanced', 'Standard', 'Creative'];
 
   const mainContentStyles = {
-    marginLeft: sidebarOpen ? drawerWidth : 0,
+    marginLeft: sidebarOpen ? drawerWidth : collapsedDrawerWidth,
     transition: 'margin-left 0.3s ease-in-out',
     minHeight: '100vh',
     background: 'linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%)',
     padding: '24px',
+    margin: 0,
+    marginTop:0,
+   
+    
   };
 
   const headerStyles = {
@@ -75,6 +80,7 @@ const MainContent = ({ sidebarOpen }) => {
     outline: 'none',
     marginBottom: '24px',
     transition: 'border-color 0.2s ease-in-out',
+    boxSizing: 'border-box',
   };
 
   const actionButtonStyles = {
