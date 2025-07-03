@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { Mail, ArrowLeft, CheckCircle, AlertCircle } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 function ForgotPasswordPage() {
+    const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -42,10 +44,7 @@ function ForgotPasswordPage() {
     }, 2000);
   };
 
-  const handleBackToLogin = () => {
-    console.log('Navigate back to login');
-    // In a real app: navigate('/login')
-  };
+
 
   const handleTryAgain = () => {
     setIsSuccess(false);
@@ -235,7 +234,7 @@ function ForgotPasswordPage() {
       <div style={containerStyles}>
         <div style={cardStyles}>
           <button
-            onClick={handleBackToLogin}
+            onClick={() => navigate('/login')}
             style={backButtonStyles}
             onMouseEnter={(e) => e.target.style.color = '#94a3b8'}
             onMouseLeave={(e) => e.target.style.color = '#64748b'}
@@ -253,7 +252,7 @@ function ForgotPasswordPage() {
             </p>
             
             <button
-              onClick={handleBackToLogin}
+              onClick={() => navigate('/login')}
               style={buttonStyles}
               onMouseEnter={(e) => {
                 e.target.style.transform = 'translateY(-1px)';
@@ -288,7 +287,7 @@ function ForgotPasswordPage() {
     <div style={containerStyles}>
       <div style={cardStyles}>
         <button
-          onClick={handleBackToLogin}
+              onClick={() => navigate('/login')}
           style={backButtonStyles}
           onMouseEnter={(e) => e.target.style.color = '#94a3b8'}
           onMouseLeave={(e) => e.target.style.color = '#64748b'}
@@ -364,7 +363,7 @@ function ForgotPasswordPage() {
         <p style={helpTextStyles}>
           Remember your password?{' '}
           <button
-            onClick={handleBackToLogin}
+              onClick={() => navigate('/login')}
             style={linkButtonStyles}
             onMouseEnter={(e) => e.target.style.color = '#60a5fa'}
             onMouseLeave={(e) => e.target.style.color = '#3b82f6'}

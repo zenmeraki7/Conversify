@@ -379,7 +379,7 @@ function LoginPage ()  {
               style={forgotLinkStyles}
               onMouseEnter={(e) => e.target.style.color = '#60a5fa'}
               onMouseLeave={(e) => e.target.style.color = '#3b82f6'}
-              onClick={() => console.log('Forgot password clicked')}
+              onClick={() => navigate('/forgot-password')}
             >
               Forgot password?
             </a>
