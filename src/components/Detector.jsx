@@ -132,7 +132,7 @@ const AIDetectorContent = ({ sidebarOpen }) => {
     backdropFilter: 'blur(10px)',
     border: '1px solid rgba(139, 92, 246, 0.2)',
     borderRadius: '16px',
-    padding: '24px',
+    padding: '15px',
     boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)',
   };
 

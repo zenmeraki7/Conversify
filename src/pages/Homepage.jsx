@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import MainContent from '../components/Maincontent';
 import { MenuIcon } from '../components/Icons';
 
-const HomePage = () => {
+function  HomePage  ()  {
   const [sidebarOpen, setSidebarOpen] = useState(false); // Start collapsed
 
   return (

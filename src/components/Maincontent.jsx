@@ -143,7 +143,7 @@ const MainContent = ({ sidebarOpen }) => {
     backdropFilter: 'blur(10px)',
     border: '1px solid rgba(99, 102, 241, 0.2)',
     borderRadius: '16px',
-    padding: '24px',
+    padding: '16px',
     boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)',
   };
 
