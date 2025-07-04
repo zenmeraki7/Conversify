@@ -19,21 +19,15 @@ const PasteIcon = () => (
   </svg>
 );
 
-const AIIcon = () => (
+const ScanIcon = () => (
   <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-    <path d="M22,14A2,2 0 0,1 20,16H4A2,2 0 0,1 2,14V10A2,2 0 0,1 4,8H20A2,2 0 0,1 22,10V14M4,14H8V10H4V14M10,14H14V10H10V14M16,14H20V10H16V14Z"/>
+    <path d="M12,17A2,2 0 0,0 14,15C14,13.89 13.1,13 12,13A2,2 0 0,0 10,15A2,2 0 0,0 12,17M18,8A2,2 0 0,1 20,10V20A2,2 0 0,1 18,22H6A2,2 0 0,1 4,20V10C4,8.89 4.9,8 6,8H7V6A5,5 0 0,1 12,1A5,5 0 0,1 17,6V8H18M12,3A3,3 0 0,0 9,6V8H15V6A3,3 0 0,0 12,3Z"/>
   </svg>
 );
 
-const ExpandIcon = () => (
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-    <path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/>
-  </svg>
-);
-
-const LightBulbIcon = () => (
+const ShieldIcon = () => (
   <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-    <path d="M12,2A7,7 0 0,0 5,9C5,11.38 6.19,13.47 8,14.74V17A1,1 0 0,0 9,18H15A1,1 0 0,0 16,17V14.74C17.81,13.47 19,11.38 19,9A7,7 0 0,0 12,2M9,21A1,1 0 0,0 10,22H14A1,1 0 0,0 15,21V20H9V21Z"/>
+    <path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M12,7C13.4,7 14.8,8.6 14.8,10V11.5C15.4,11.5 16,12.4 16,13V16C16,17.4 15.4,18 14.8,18H9.2C8.6,18 8,17.4 8,16V13C8,12.4 8.6,11.5 9.2,11.5V10C9.2,8.6 10.6,7 12,7M12,8.2C11.2,8.2 10.5,8.7 10.5,10V11.5H13.5V10C13.5,8.7 12.8,8.2 12,8.2Z"/>
   </svg>
 );
 
@@ -49,49 +43,44 @@ const ChevronDownIcon = () => (
   </svg>
 );
 
-const ChevronUpIcon = () => (
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-    <path d="M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z"/>
-  </svg>
-);
-
 const drawerWidth = 280;
 const collapsedDrawerWidth = 64;
 
-const MainContent = ({ sidebarOpen }) => {
+const AIDetectorContent = ({ sidebarOpen }) => {
   const [inputText, setInputText] = useState('');
-  const [mode, setMode] = useState('Enhanced');
-  const [showModeDropdown, setShowModeDropdown] = useState(false);
+  const [sensitivity, setSensitivity] = useState('Balanced');
+  const [showSensitivityDropdown, setShowSensitivityDropdown] = useState(false);
   const [hoveredButton, setHoveredButton] = useState(null);
   const [isPrimaryHovered, setIsPrimaryHovered] = useState(false);
   const [showTips, setShowTips] = useState(false);
+  const [scanResult, setScanResult] = useState(null);
 
-  const modes = ['Enhanced', 'Standard', 'Creative'];
+  const sensitivityOptions = ['Low', 'Balanced', 'High', 'Maximum'];
 
   const tips = [
     {
-      title: "Write Clear Text",
-      description: "Use simple, straightforward language for the best humanization results",
-      icon: "✍️"
+      title: "Input Quality Matters",
+      description: "Ensure your text is complete and well-formatted for the most accurate detection results",
+      icon: "📝"
     },
     {
-      title: "Choose the Right Mode",
-      description: "Enhanced for formal content, Creative for marketing, Standard for general use",
-      icon: "⚙️"
+      title: "Sensitivity Settings",
+      description: "Use 'Balanced' for general content, 'High' for academic work, 'Maximum' for strict verification",
+      icon: "⚖️"
     },
     {
-      title: "Review Output",
-      description: "Always check the humanized text to ensure it maintains your intended meaning",
-      icon: "👀"
+      title: "Context Awareness",
+      description: "The detector works best with substantial text (100+ words) to analyze patterns effectively",
+      icon: "🧠"
     },
     {
-      title: "Optimal Length",
-      description: "Works best with 50-2000 words. Longer texts may need to be split",
-      icon: "📏"
+      title: "Review Results",
+      description: "Always review the detailed analysis - no detector is 100% accurate, use results as guidance",
+      icon: "🔍"
     },
     {
-      title: "Context Matters",
-      description: "Provide context in your text for more accurate humanization",
+      title: "Multiple Sources",
+      description: "For critical decisions, cross-reference with other detection tools and human review",
       icon: "🎯"
     }
   ];
@@ -116,7 +105,7 @@ const MainContent = ({ sidebarOpen }) => {
     fontWeight: 'bold',
     color: '#fff',
     marginBottom: '16px',
-    background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)',
+    background: 'linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%)',
     backgroundClip: 'text',
     WebkitBackgroundClip: 'text',
     WebkitTextFillColor: 'transparent',
@@ -127,7 +116,7 @@ const MainContent = ({ sidebarOpen }) => {
     display: 'inline-flex',
     alignItems: 'center',
     gap: '8px',
-    backgroundColor: '#f97316',
+    backgroundColor: '#8b5cf6',
     color: '#fff',
     padding: '8px 16px',
     borderRadius: '8px',
@@ -141,7 +130,7 @@ const MainContent = ({ sidebarOpen }) => {
     margin: '0 auto',
     background: 'linear-gradient(135deg, rgba(26, 26, 46, 0.5) 0%, rgba(22, 33, 62, 0.3) 100%)',
     backdropFilter: 'blur(10px)',
-    border: '1px solid rgba(99, 102, 241, 0.2)',
+    border: '1px solid rgba(139, 92, 246, 0.2)',
     borderRadius: '16px',
     padding: '24px',
     boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)',
@@ -151,7 +140,7 @@ const MainContent = ({ sidebarOpen }) => {
     width: '100%',
     height: '256px',
     backgroundColor: 'rgba(0, 0, 0, 0.3)',
-    border: '1px solid rgba(99, 102, 241, 0.3)',
+    border: '1px solid rgba(139, 92, 246, 0.3)',
     borderRadius: '8px',
     padding: '16px',
     color: '#fff',
@@ -170,7 +159,7 @@ const MainContent = ({ sidebarOpen }) => {
     justifyContent: 'center',
     gap: '12px',
     padding: '16px 24px',
-    border: '1px solid rgba(99, 102, 241, 0.3)',
+    border: '1px solid rgba(139, 92, 246, 0.3)',
     backgroundColor: 'transparent',
     color: '#a1a1aa',
     borderRadius: '8px',
@@ -182,14 +171,14 @@ const MainContent = ({ sidebarOpen }) => {
   };
 
   const actionButtonHoverStyles = {
-    borderColor: '#6366f1',
+    borderColor: '#8b5cf6',
     color: '#fff',
-    backgroundColor: 'rgba(99, 102, 241, 0.1)',
+    backgroundColor: 'rgba(139, 92, 246, 0.1)',
   };
 
   const primaryButtonStyles = {
     padding: '12px 32px',
-    background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)',
+    background: 'linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%)',
     border: 'none',
     color: '#fff',
     borderRadius: '8px',
@@ -200,9 +189,9 @@ const MainContent = ({ sidebarOpen }) => {
   };
 
   const primaryButtonHoverStyles = {
-    background: 'linear-gradient(135deg, #4338ca 0%, #7c3aed 100%)',
+    background: 'linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%)',
     transform: 'translateY(-2px)',
-    boxShadow: '0 4px 12px rgba(99, 102, 241, 0.4)',
+    boxShadow: '0 4px 12px rgba(139, 92, 246, 0.4)',
   };
 
   const selectStyles = {
@@ -216,7 +205,7 @@ const MainContent = ({ sidebarOpen }) => {
     gap: '8px',
     padding: '8px 16px',
     backgroundColor: '#374151',
-    border: '1px solid rgba(99, 102, 241, 0.3)',
+    border: '1px solid rgba(139, 92, 246, 0.3)',
     color: '#fff',
     borderRadius: '8px',
     cursor: 'pointer',
@@ -230,7 +219,7 @@ const MainContent = ({ sidebarOpen }) => {
     left: 0,
     right: 0,
     backgroundColor: '#374151',
-    border: '1px solid rgba(99, 102, 241, 0.3)',
+    border: '1px solid rgba(139, 92, 246, 0.3)',
     borderRadius: '8px',
     boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)',
     zIndex: 1000,
@@ -238,8 +227,8 @@ const MainContent = ({ sidebarOpen }) => {
 
   const tipsContainerStyles = {
     marginTop: '24px',
-    background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.05) 0%, rgba(139, 92, 246, 0.03) 100%)',
-    border: '1px solid rgba(99, 102, 241, 0.2)',
+    background: 'linear-gradient(135deg, rgba(139, 92, 246, 0.05) 0%, rgba(124, 58, 237, 0.03) 100%)',
+    border: '1px solid rgba(139, 92, 246, 0.2)',
     borderRadius: '12px',
     overflow: 'hidden',
     transition: 'all 0.3s ease-in-out',
@@ -252,7 +241,7 @@ const MainContent = ({ sidebarOpen }) => {
     padding: '16px 20px',
     cursor: 'pointer',
     transition: 'all 0.2s ease-in-out',
-    borderBottom: showTips ? '1px solid rgba(99, 102, 241, 0.2)' : 'none',
+    borderBottom: showTips ? '1px solid rgba(139, 92, 246, 0.2)' : 'none',
   };
 
   const tipsContentStyles = {
@@ -267,15 +256,24 @@ const MainContent = ({ sidebarOpen }) => {
     alignItems: 'flex-start',
     gap: '16px',
     padding: '16px',
-    background: 'rgba(99, 102, 241, 0.03)',
-    border: '1px solid rgba(99, 102, 241, 0.1)',
+    background: 'rgba(139, 92, 246, 0.03)',
+    border: '1px solid rgba(139, 92, 246, 0.1)',
     borderRadius: '8px',
     marginBottom: '12px',
     transition: 'all 0.2s ease-in-out',
   };
 
+  const resultCardStyles = {
+    marginTop: '24px',
+    background: 'linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(124, 58, 237, 0.05) 100%)',
+    border: '1px solid rgba(139, 92, 246, 0.3)',
+    borderRadius: '12px',
+    padding: '24px',
+    animation: 'slideInUp 0.5s ease-out',
+  };
+
   const handleSampleText = () => {
-    setInputText("AI-generated content has become increasingly sophisticated in recent years, with models capable of producing high-quality text across various domains. However, there remains a need to ensure that such content maintains a natural, human-like quality that resonates with readers and passes detection systems.");
+    setInputText("The rapid advancement of artificial intelligence has transformed numerous industries and aspects of daily life. Machine learning algorithms now power recommendation systems, autonomous vehicles, and medical diagnostics. These sophisticated systems analyze vast amounts of data to identify patterns and make predictions with remarkable accuracy. As AI continues to evolve, researchers focus on developing more interpretable and ethical AI systems that can benefit society while minimizing potential risks.");
   };
 
   const handlePasteText = async () => {
@@ -287,33 +285,64 @@ const MainContent = ({ sidebarOpen }) => {
     }
   };
 
+  const handleDetection = () => {
+    if (inputText.trim()) {
+      // Simulate AI detection analysis
+      const aiScore = Math.floor(Math.random() * 100);
+      const humanScore = 100 - aiScore;
+      
+      setScanResult({
+        aiProbability: aiScore,
+        humanProbability: humanScore,
+        confidence: Math.floor(Math.random() * 40) + 60,
+        wordsAnalyzed: inputText.trim().split(' ').length,
+        detectedPatterns: [
+          'Consistent sentence structure',
+          'Formal vocabulary usage',
+          'Limited stylistic variation'
+        ]
+      });
+    }
+  };
+
   return (
     <div style={mainContentStyles}>
       <style>{`
         @keyframes tipGlow {
           0%, 100% {
-            box-shadow: 0 0 20px rgba(99, 102, 241, 0.1);
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.1);
           }
           50% {
-            box-shadow: 0 0 30px rgba(99, 102, 241, 0.2);
+            box-shadow: 0 0 30px rgba(139, 92, 246, 0.2);
+          }
+        }
+
+        @keyframes slideInUp {
+          from {
+            opacity: 0;
+            transform: translateY(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
           }
         }
 
         .tip-item:hover {
-          background: rgba(99, 102, 241, 0.08) !important;
-          border-color: rgba(99, 102, 241, 0.3) !important;
+          background: rgba(139, 92, 246, 0.08) !important;
+          border-color: rgba(139, 92, 246, 0.3) !important;
           transform: translateY(-2px);
           animation: tipGlow 2s ease-in-out infinite;
         }
 
         .tips-header:hover {
-          background: rgba(99, 102, 241, 0.05);
+          background: rgba(139, 92, 246, 0.05);
         }
 
         .icon-emoji {
           font-size: 20px;
           padding: 8px;
-          background: rgba(99, 102, 241, 0.1);
+          background: rgba(139, 92, 246, 0.1);
           border-radius: 8px;
           display: flex;
           align-items: center;
@@ -321,12 +350,27 @@ const MainContent = ({ sidebarOpen }) => {
           min-width: 36px;
           height: 36px;
         }
+
+        .result-meter {
+          position: relative;
+          height: 20px;
+          background: rgba(0, 0, 0, 0.3);
+          border-radius: 10px;
+          overflow: hidden;
+        }
+
+        .result-fill {
+          height: 100%;
+          background: linear-gradient(90deg, #ef4444 0%, #f97316 50%, #8b5cf6 100%);
+          border-radius: 10px;
+          transition: width 1s ease-out;
+        }
       `}</style>
 
       {/* Header */}
       <div style={headerStyles}>
         <h1 style={titleStyles}>
-          Convert AI Text to Authentic Content
+          Detect AI-Generated Content
         </h1>
         
         <div 
@@ -334,7 +378,7 @@ const MainContent = ({ sidebarOpen }) => {
           onMouseEnter={(e) => e.target.style.transform = 'translateY(-2px)'}
           onMouseLeave={(e) => e.target.style.transform = 'translateY(0)'}
         >
-          🎁 Earn free words worth $6 →
+          🔍 Advanced AI Detection Technology →
         </div>
       </div>
 
@@ -344,10 +388,10 @@ const MainContent = ({ sidebarOpen }) => {
         <textarea
           value={inputText}
           onChange={(e) => setInputText(e.target.value)}
-          placeholder="Enter the text you want to humanize here"
+          placeholder="Paste the text you want to analyze for AI generation here..."
           style={textareaStyles}
-          onFocus={(e) => e.target.style.borderColor = '#6366f1'}
-          onBlur={(e) => e.target.style.borderColor = 'rgba(99, 102, 241, 0.3)'}
+          onFocus={(e) => e.target.style.borderColor = '#8b5cf6'}
+          onBlur={(e) => e.target.style.borderColor = 'rgba(139, 92, 246, 0.3)'}
         />
 
         {/* Action Buttons */}
@@ -375,31 +419,29 @@ const MainContent = ({ sidebarOpen }) => {
 
         {/* Bottom Controls */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
-         
-
           <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-            <span style={{ color: '#a1a1aa', fontSize: '16px' }}>Mode:</span>
+            <span style={{ color: '#a1a1aa', fontSize: '16px' }}>Sensitivity:</span>
             
             <div style={selectStyles}>
               <button
-                onClick={() => setShowModeDropdown(!showModeDropdown)}
+                onClick={() => setShowSensitivityDropdown(!showSensitivityDropdown)}
                 style={{
                   ...selectButtonStyles,
-                  borderColor: showModeDropdown ? '#6366f1' : 'rgba(99, 102, 241, 0.3)',
+                  borderColor: showSensitivityDropdown ? '#8b5cf6' : 'rgba(139, 92, 246, 0.3)',
                 }}
               >
-                {mode}
-                <ExpandIcon />
+                {sensitivity}
+                <ChevronDownIcon />
               </button>
               
-              {showModeDropdown && (
+              {showSensitivityDropdown && (
                 <div style={dropdownStyles}>
-                  {modes.map((modeOption) => (
+                  {sensitivityOptions.map((option) => (
                     <button
-                      key={modeOption}
+                      key={option}
                       onClick={() => {
-                        setMode(modeOption);
-                        setShowModeDropdown(false);
+                        setSensitivity(option);
+                        setShowSensitivityDropdown(false);
                       }}
                       style={{
                         width: '100%',
@@ -410,36 +452,90 @@ const MainContent = ({ sidebarOpen }) => {
                         cursor: 'pointer',
                         textAlign: 'left',
                         fontSize: '16px',
-                        borderRadius: modeOption === modes[0] ? '8px 8px 0 0' : modeOption === modes[modes.length - 1] ? '0 0 8px 8px' : '0',
+                        borderRadius: option === sensitivityOptions[0] ? '8px 8px 0 0' : option === sensitivityOptions[sensitivityOptions.length - 1] ? '0 0 8px 8px' : '0',
                         transition: 'background-color 0.2s ease-in-out',
                       }}
-                      onMouseEnter={(e) => e.target.style.backgroundColor = 'rgba(99, 102, 241, 0.2)'}
+                      onMouseEnter={(e) => e.target.style.backgroundColor = 'rgba(139, 92, 246, 0.2)'}
                       onMouseLeave={(e) => e.target.style.backgroundColor = 'transparent'}
                     >
-                      {modeOption}
+                      {option}
                     </button>
                   ))}
                 </div>
               )}
             </div>
-
-            <button
-              style={{
-                ...primaryButtonStyles,
-                ...(isPrimaryHovered ? primaryButtonHoverStyles : {}),
-              }}
-              onMouseEnter={() => setIsPrimaryHovered(true)}
-              onMouseLeave={() => setIsPrimaryHovered(false)}
-              onClick={() => {
-                if (inputText.trim()) {
-                  alert(`Humanizing text in ${mode} mode: "${inputText.substring(0, 50)}..."`);
-                }
-              }}
-            >
-              Humanize
-            </button>
           </div>
+
+          <button
+            style={{
+              ...primaryButtonStyles,
+              ...(isPrimaryHovered ? primaryButtonHoverStyles : {}),
+            }}
+            onMouseEnter={() => setIsPrimaryHovered(true)}
+            onMouseLeave={() => setIsPrimaryHovered(false)}
+            onClick={handleDetection}
+          >
+            <ScanIcon />
+            Analyze Text
+          </button>
         </div>
+
+        {/* Results Section */}
+        {scanResult && (
+          <div style={resultCardStyles}>
+            <h3 style={{ color: '#8b5cf6', fontSize: '20px', fontWeight: '600', marginBottom: '20px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <ShieldIcon />
+              Detection Results
+            </h3>
+            
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '20px', marginBottom: '20px' }}>
+              <div style={{ background: 'rgba(0, 0, 0, 0.2)', padding: '16px', borderRadius: '8px' }}>
+                <h4 style={{ color: '#ef4444', fontSize: '16px', marginBottom: '8px' }}>AI Generated</h4>
+                <div style={{ fontSize: '24px', fontWeight: 'bold', color: '#ef4444', marginBottom: '8px' }}>
+                  {scanResult.aiProbability}%
+                </div>
+                <div className="result-meter">
+                  <div 
+                    className="result-fill" 
+                    style={{ width: `${scanResult.aiProbability}%`, background: '#ef4444' }}
+                  />
+                </div>
+              </div>
+              
+              <div style={{ background: 'rgba(0, 0, 0, 0.2)', padding: '16px', borderRadius: '8px' }}>
+                <h4 style={{ color: '#10b981', fontSize: '16px', marginBottom: '8px' }}>Human Written</h4>
+                <div style={{ fontSize: '24px', fontWeight: 'bold', color: '#10b981', marginBottom: '8px' }}>
+                  {scanResult.humanProbability}%
+                </div>
+                <div className="result-meter">
+                  <div 
+                    className="result-fill" 
+                    style={{ width: `${scanResult.humanProbability}%`, background: '#10b981' }}
+                  />
+                </div>
+              </div>
+              
+              <div style={{ background: 'rgba(0, 0, 0, 0.2)', padding: '16px', borderRadius: '8px' }}>
+                <h4 style={{ color: '#f59e0b', fontSize: '16px', marginBottom: '8px' }}>Confidence</h4>
+                <div style={{ fontSize: '24px', fontWeight: 'bold', color: '#f59e0b', marginBottom: '8px' }}>
+                  {scanResult.confidence}%
+                </div>
+                <div style={{ fontSize: '14px', color: '#94a3b8' }}>
+                  {scanResult.wordsAnalyzed} words analyzed
+                </div>
+              </div>
+            </div>
+            
+            <div style={{ background: 'rgba(0, 0, 0, 0.2)', padding: '16px', borderRadius: '8px' }}>
+              <h4 style={{ color: '#94a3b8', fontSize: '16px', marginBottom: '12px' }}>Detected Patterns:</h4>
+              <ul style={{ margin: 0, paddingLeft: '20px' }}>
+                {scanResult.detectedPatterns.map((pattern, index) => (
+                  <li key={index} style={{ color: '#cbd5e1', marginBottom: '4px' }}>{pattern}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        )}
 
         {/* Enhanced Tips Section */}
         <div style={tipsContainerStyles}>
@@ -455,11 +551,11 @@ const MainContent = ({ sidebarOpen }) => {
                 justifyContent: 'center',
                 width: '32px',
                 height: '32px',
-                background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)',
+                background: 'linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%)',
                 borderRadius: '8px',
                 color: '#fff'
               }}>
-                <LightBulbIcon />
+                <ShieldIcon />
               </div>
               <div>
                 <h3 style={{
@@ -469,14 +565,14 @@ const MainContent = ({ sidebarOpen }) => {
                   margin: 0,
                   marginBottom: '2px'
                 }}>
-                  Pro Tips for Best Results
+                  Detection Best Practices
                 </h3>
                 <p style={{
                   color: '#94a3b8',
                   fontSize: '14px',
                   margin: 0
                 }}>
-                  {showTips ? 'Click to hide tips' : 'Click to view optimization tips'}
+                  {showTips ? 'Click to hide detection tips' : 'Click to view detection optimization tips'}
                 </p>
               </div>
             </div>
@@ -521,7 +617,7 @@ const MainContent = ({ sidebarOpen }) => {
                     </p>
                   </div>
                   <div style={{
-                    color: '#10b981',
+                    color: '#8b5cf6',
                     opacity: 0.7
                   }}>
                     <CheckIcon />
@@ -533,13 +629,13 @@ const MainContent = ({ sidebarOpen }) => {
             <div style={{
               marginTop: '20px',
               padding: '16px',
-              background: 'rgba(16, 185, 129, 0.05)',
-              border: '1px solid rgba(16, 185, 129, 0.2)',
+              background: 'rgba(139, 92, 246, 0.05)',
+              border: '1px solid rgba(139, 92, 246, 0.2)',
               borderRadius: '8px',
               textAlign: 'center'
             }}>
               <p style={{
-                color: '#10b981',
+                color: '#8b5cf6',
                 fontSize: '14px',
                 fontWeight: '500',
                 margin: 0,
@@ -549,7 +645,7 @@ const MainContent = ({ sidebarOpen }) => {
                 gap: '8px'
               }}>
                 <CheckIcon />
-                Following these tips can improve your results by up to 40%
+                Our AI detection accuracy improves with longer, more complete text samples
               </p>
             </div>
           </div>
@@ -559,4 +655,4 @@ const MainContent = ({ sidebarOpen }) => {
   );
 };
 
-export default MainContent;
+export default AIDetectorContent;
