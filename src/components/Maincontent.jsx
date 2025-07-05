@@ -58,7 +58,7 @@ const ChevronUpIcon = () => (
 const drawerWidth = 280;
 const collapsedDrawerWidth = 64;
 
-const MainContent = ({ sidebarOpen }) => {
+const MainContent = ({ sidebarOpen = false }) => {
   const [inputText, setInputText] = useState('');
   const [mode, setMode] = useState('Enhanced');
   const [showModeDropdown, setShowModeDropdown] = useState(false);
@@ -143,7 +143,7 @@ const MainContent = ({ sidebarOpen }) => {
     backdropFilter: 'blur(10px)',
     border: '1px solid rgba(99, 102, 241, 0.2)',
     borderRadius: '16px',
-    padding: '16px',
+    padding: '24px',
     boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)',
   };
 
@@ -197,6 +197,9 @@ const MainContent = ({ sidebarOpen }) => {
     fontSize: '16px',
     fontWeight: 600,
     transition: 'all 0.2s ease-in-out',
+    display: 'flex',
+    alignItems: 'center',
+    gap: '8px',
   };
 
   const primaryButtonHoverStyles = {
@@ -290,12 +293,57 @@ const MainContent = ({ sidebarOpen }) => {
   return (
     <div style={mainContentStyles}>
       <style>{`
-        @keyframes tipGlow {
-          0%, 100% {
-            box-shadow: 0 0 20px rgba(99, 102, 241, 0.1);
+        @media (max-width: 768px) {
+          .main-content {
+            margin-left: 0 !important;
+            padding: 16px !important;
           }
-          50% {
-            box-shadow: 0 0 30px rgba(99, 102, 241, 0.2);
+          
+          .title {
+            font-size: 2rem !important;
+          }
+          
+          .action-buttons {
+            grid-template-columns: 1fr !important;
+          }
+          
+          .bottom-controls {
+            flex-direction: column !important;
+            align-items: stretch !important;
+          }
+          
+          .textarea {
+            height: 200px !important;
+          }
+          
+          .card {
+            padding: 16px !important;
+          }
+        }
+        
+        @media (max-width: 480px) {
+          .title {
+            font-size: 1.5rem !important;
+          }
+          
+          .chip {
+            padding: 6px 12px !important;
+            font-size: 14px !important;
+          }
+          
+          .action-button {
+            padding: 12px 16px !important;
+            font-size: 14px !important;
+          }
+          
+          .primary-button {
+            padding: 12px 24px !important;
+            font-size: 14px !important;
+          }
+          
+          .select-button {
+            padding: 6px 12px !important;
+            font-size: 14px !important;
           }
         }
 
@@ -303,7 +351,7 @@ const MainContent = ({ sidebarOpen }) => {
           background: rgba(99, 102, 241, 0.08) !important;
           border-color: rgba(99, 102, 241, 0.3) !important;
           transform: translateY(-2px);
-          animation: tipGlow 2s ease-in-out infinite;
+          box-shadow: 0 0 20px rgba(99, 102, 241, 0.1);
         }
 
         .tips-header:hover {
@@ -324,12 +372,13 @@ const MainContent = ({ sidebarOpen }) => {
       `}</style>
 
       {/* Header */}
-      <div style={headerStyles}>
-        <h1 style={titleStyles}>
+      <div className="header" style={headerStyles}>
+        <h1 className="title" style={titleStyles}>
           Convert AI Text to Authentic Content
         </h1>
         
         <div 
+          className="chip"
           style={chipStyles}
           onMouseEnter={(e) => e.target.style.transform = 'translateY(-2px)'}
           onMouseLeave={(e) => e.target.style.transform = 'translateY(0)'}
@@ -339,19 +388,20 @@ const MainContent = ({ sidebarOpen }) => {
       </div>
 
       {/* Main Content Card */}
-      <div style={cardStyles}>
+      <div className="card" style={cardStyles}>
         {/* Text Input Area */}
         <textarea
+          className="textarea"
+          style={textareaStyles}
           value={inputText}
           onChange={(e) => setInputText(e.target.value)}
           placeholder="Enter the text you want to humanize here"
-          style={textareaStyles}
           onFocus={(e) => e.target.style.borderColor = '#6366f1'}
           onBlur={(e) => e.target.style.borderColor = 'rgba(99, 102, 241, 0.3)'}
         />
 
         {/* Action Buttons */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '16px', marginBottom: '24px' }}>
+        <div className="action-buttons" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '16px', marginBottom: '24px' }}>
           {[
             { icon: UploadIcon, text: 'Upload File', id: 'upload', action: () => {} },
             { icon: DocumentIcon, text: 'Try A Sample', id: 'sample', action: handleSampleText },
@@ -359,6 +409,7 @@ const MainContent = ({ sidebarOpen }) => {
           ].map((item) => (
             <button
               key={item.id}
+              className="action-button"
               onClick={item.action}
               style={{
                 ...actionButtonStyles,
@@ -374,14 +425,13 @@ const MainContent = ({ sidebarOpen }) => {
         </div>
 
         {/* Bottom Controls */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
-         
-
+        <div className="bottom-controls" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
             <span style={{ color: '#a1a1aa', fontSize: '16px' }}>Mode:</span>
             
             <div style={selectStyles}>
               <button
+                className="select-button"
                 onClick={() => setShowModeDropdown(!showModeDropdown)}
                 style={{
                   ...selectButtonStyles,
@@ -422,23 +472,24 @@ const MainContent = ({ sidebarOpen }) => {
                 </div>
               )}
             </div>
-
-            <button
-              style={{
-                ...primaryButtonStyles,
-                ...(isPrimaryHovered ? primaryButtonHoverStyles : {}),
-              }}
-              onMouseEnter={() => setIsPrimaryHovered(true)}
-              onMouseLeave={() => setIsPrimaryHovered(false)}
-              onClick={() => {
-                if (inputText.trim()) {
-                  alert(`Humanizing text in ${mode} mode: "${inputText.substring(0, 50)}..."`);
-                }
-              }}
-            >
-              Humanize
-            </button>
           </div>
+
+          <button
+            className="primary-button"
+            style={{
+              ...primaryButtonStyles,
+              ...(isPrimaryHovered ? primaryButtonHoverStyles : {}),
+            }}
+            onMouseEnter={() => setIsPrimaryHovered(true)}
+            onMouseLeave={() => setIsPrimaryHovered(false)}
+            onClick={() => {
+              if (inputText.trim()) {
+                alert(`Humanizing text in ${mode} mode: "${inputText.substring(0, 50)}..."`);
+              }
+            }}
+          >
+            Humanize
+          </button>
         </div>
 
         {/* Enhanced Tips Section */}
