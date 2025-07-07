@@ -9,6 +9,8 @@ import ResetPasswordPage from './pages/Auth/ResetPassword'
 import SettingsPage from './pages/Settings'
 import MainLayout from './pages/Layout/MainLayout'
 import PricingPage from './pages/Pricing'
+import AIDetectorContent from './components/Detector'
+import PlagiarismRemover from './components/Plagiarism'
 
 function App() {
 
@@ -24,6 +26,8 @@ function App() {
         <Route path="/" element={<Homepage />} />
         <Route path='/settings' element={<SettingsPage/>}/>
         <Route path='/pricing' element={<PricingPage/>}/>
+        <Route path='/detector' element={<AIDetectorContent/>} />
+        <Route path='/plagiarism' element={<PlagiarismRemover/>} />
       </Route>
       </Routes>
     </>

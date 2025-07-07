@@ -1,43 +1,9 @@
 import React, { useState, useEffect } from 'react';
-
-// Icon Components
-const CheckIcon = () => (
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-    <path d="M9,20.42L2.79,14.21L5.62,11.38L9,14.77L18.88,4.88L21.71,7.71L9,20.42Z"/>
-  </svg>
-);
-
-const StarIcon = () => (
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-    <path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.46,13.97L5.82,21L12,17.27Z"/>
-  </svg>
-);
-
-const CrownIcon = () => (
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-    <path d="M5 16L3 5L8.5 10L12 4L15.5 10L21 5L19 16H5M19 19C19 19.6 18.6 20 18 20H6C5.4 20 5 19.6 5 19V18H19V19Z"/>
-  </svg>
-);
-
-const ZapIcon = () => (
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-    <path d="M7,2V13H10V22L17,10H14L17,2H7Z"/>
-  </svg>
-);
-
-const TeamIcon = () => (
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-    <path d="M16,4C18.21,4 20,5.79 20,8C20,10.21 18.21,12 16,12C13.79,12 12,10.21 12,8C12,5.79 13.79,4 16,4M16,14C20.42,14 24,15.79 24,18V20H8V18C8,15.79 11.58,14 16,14M6,6H8V4H6A2,2 0 0,0 4,6V8H6V6M4,16H6V14H4A2,2 0 0,0 2,16V18H4V16M9,12C11.21,12 13,10.21 13,8C13,5.79 11.21,4 9,4C6.79,4 5,5.79 5,8C5,10.21 6.79,12 9,12Z"/>
-  </svg>
-);
-
-const ChevronDownIcon = () => (
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-    <path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/>
-  </svg>
-);
-
-const PricingPage = ({ sidebarOpen = false }) => {
+import './Pricing.css';
+import { CheckIcon, ChevronDownIcon, CrownIcon, StarIcon, TeamIcon, ZapIcon } from '../components/Icons';
+import { useOutletContext } from 'react-router-dom';
+function PricingPage ()  {
+const { sidebarOpen } = useOutletContext();
   const [particles, setParticles] = useState([]);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [selectedPlan, setSelectedPlan] = useState('pro');
@@ -45,8 +11,8 @@ const PricingPage = ({ sidebarOpen = false }) => {
   const [openFAQ, setOpenFAQ] = useState(null);
 
 // Constants for sidebar positioning
-  const drawerWidth = 300;
-  const collapsedDrawerWidth = 80;
+  const drawerWidth = 220;
+  const collapsedDrawerWidth = 60;
 
   useEffect(() => {
     // Initialize floating particles
@@ -251,294 +217,6 @@ const PricingPage = ({ sidebarOpen = false }) => {
         transition: 'margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
       }}
     >
-      <style>{`
-        @keyframes particle-float {
-          0%, 100% {
-            transform: translateY(0px) rotate(0deg);
-          }
-          33% {
-            transform: translateY(-15px) rotate(120deg);
-          }
-          66% {
-            transform: translateY(8px) rotate(240deg);
-          }
-        }
-
-        @keyframes pricing-slide-in {
-          from {
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        @keyframes plan-hover {
-          0%, 100% {
-            transform: translateY(0px);
-          }
-          50% {
-            transform: translateY(-5px);
-          }
-        }
-
-        @keyframes popular-pulse {
-          0%, 100% {
-            box-shadow: 0 0 30px rgba(99, 102, 241, 0.4);
-          }
-          50% {
-            box-shadow: 0 0 50px rgba(99, 102, 241, 0.6);
-          }
-        }
-
-        .floating-particle {
-          position: absolute;
-          background: radial-gradient(circle, rgba(99, 102, 241, 0.4) 0%, transparent 70%);
-          border-radius: 50%;
-          pointer-events: none;
-          animation: particle-float 8s ease-in-out infinite;
-        }
-
-        .pricing-container {
-          animation: pricing-slide-in 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-
-        .plan-card {
-          background: linear-gradient(135deg, 
-            rgba(26, 26, 46, 0.7) 0%, 
-            rgba(22, 33, 62, 0.5) 50%, 
-            rgba(15, 15, 35, 0.6) 100%
-          );
-          backdrop-filter: blur(20px);
-          border: 2px solid rgba(99, 102, 241, 0.3);
-          border-radius: 24px;
-          padding: 32px;
-          transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-          position: relative;
-          overflow: hidden;
-        }
-
-        .plan-card:hover {
-          transform: translateY(-8px);
-          box-shadow: 
-            0 32px 60px rgba(0, 0, 0, 0.4),
-            inset 0 1px 0 rgba(255, 255, 255, 0.15),
-            0 0 80px rgba(99, 102, 241, 0.2);
-        }
-
-        .plan-card.popular {
-          border-color: rgba(99, 102, 241, 0.6);
-          animation: popular-pulse 3s ease-in-out infinite;
-          transform: scale(1.05);
-        }
-
-        .plan-card.popular:hover {
-          transform: scale(1.05) translateY(-8px);
-        }
-
-        .billing-toggle {
-          background: rgba(30, 41, 59, 0.6);
-          border: 2px solid rgba(99, 102, 241, 0.3);
-          border-radius: 16px;
-          padding: 8px;
-          display: flex;
-          gap: 8px;
-          backdrop-filter: blur(10px);
-        }
-
-        .billing-option {
-          padding: 12px 24px;
-          border-radius: 12px;
-          background: transparent;
-          border: none;
-          color: #94a3b8;
-          cursor: pointer;
-          transition: all 0.3s ease;
-          font-weight: 600;
-          position: relative;
-        }
-
-        .billing-option.active {
-          background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
-          color: #fff;
-          box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
-        }
-
-        .feature-list {
-          list-style: none;
-          padding: 0;
-          margin: 0;
-        }
-
-        .feature-item {
-          display: flex;
-          align-items: center;
-          gap: 12px;
-          padding: 8px 0;
-          color: #e2e8f0;
-          font-size: 14px;
-        }
-
-        .feature-icon {
-          color: #10b981;
-          flex-shrink: 0;
-        }
-
-        .plan-button {
-          width: 100%;
-          padding: 16px;
-          border-radius: 12px;
-          border: none;
-          font-weight: 700;
-          font-size: 16px;
-          cursor: pointer;
-          transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
-          text-transform: uppercase;
-          letter-spacing: 1px;
-        }
-
-        .plan-button.primary {
-          background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
-          color: #fff;
-          box-shadow: 0 8px 25px rgba(99, 102, 241, 0.3);
-        }
-
-        .plan-button.primary:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 12px 35px rgba(99, 102, 241, 0.4);
-        }
-
-        .plan-button.secondary {
-          background: rgba(99, 102, 241, 0.1);
-          color: #6366f1;
-          border: 2px solid rgba(99, 102, 241, 0.3);
-        }
-
-        .plan-button.secondary:hover {
-          background: rgba(99, 102, 241, 0.2);
-          transform: translateY(-2px);
-        }
-
-        .faq-item {
-          background: linear-gradient(135deg, 
-            rgba(26, 26, 46, 0.7) 0%, 
-            rgba(22, 33, 62, 0.5) 100%
-          );
-          backdrop-filter: blur(20px);
-          border: 2px solid rgba(99, 102, 241, 0.3);
-          border-radius: 16px;
-          margin-bottom: 16px;
-          overflow: hidden;
-          transition: all 0.3s ease;
-        }
-
-        .faq-item:hover {
-          border-color: rgba(99, 102, 241, 0.5);
-        }
-
-        .faq-question {
-          width: 100%;
-          padding: 20px 24px;
-          background: transparent;
-          border: none;
-          color: #f8fafc;
-          font-size: 16px;
-          font-weight: 600;
-          text-align: left;
-          cursor: pointer;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          transition: all 0.3s ease;
-        }
-
-        .faq-question:hover {
-          color: #6366f1;
-        }
-
-        .faq-answer {
-          padding: 0 24px 20px 24px;
-          color: #94a3b8;
-          line-height: 1.6;
-          font-size: 14px;
-        }
-
-        .popular-badge {
-          position: absolute;
-          top: -8px;
-          left: 50%;
-          transform: translateX(-50%);
-          background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
-          color: #fff;
-          padding: 8px 20px;
-          border-radius: 20px;
-          font-size: 12px;
-          font-weight: 700;
-          text-transform: uppercase;
-          letter-spacing: 1px;
-          box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
-          z-index: 10;
-        }
-
-
-        .comparison-table {
-          background: linear-gradient(135deg, 
-            rgba(26, 26, 46, 0.7) 0%, 
-            rgba(22, 33, 62, 0.5) 100%
-          );
-          backdrop-filter: blur(20px);
-          border: 2px solid rgba(99, 102, 241, 0.3);
-          border-radius: 20px;
-          overflow: hidden;
-        }
-
-        .table-header {
-          background: rgba(99, 102, 241, 0.1);
-          padding: 20px;
-          border-bottom: 1px solid rgba(99, 102, 241, 0.2);
-        }
-
-        .table-row {
-          display: grid;
-          grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
-          padding: 16px 20px;
-          border-bottom: 1px solid rgba(99, 102, 241, 0.1);
-          align-items: center;
-        }
-
-        .table-row:hover {
-          background: rgba(99, 102, 241, 0.05);
-        }
-
-        @media (max-width: 1024px) {
-          .plans-grid {
-            grid-template-columns: 1fr 1fr !important;
-            gap: 20px !important;
-          }
-          
-          .table-row {
-            grid-template-columns: 2fr 1fr 1fr !important;
-          }
-        }
-
-        @media (max-width: 768px) {
-          .plans-grid {
-            grid-template-columns: 1fr !important;
-          }
-          
-          .billing-toggle {
-            flex-direction: column;
-          }
-          
-          .table-row {
-            grid-template-columns: 1fr !important;
-            text-align: center;
-          }
-        }
-      `}</style>
-
       {/* Floating Particles */}
       {particles.map((particle, index) => (
         <div
@@ -554,7 +232,6 @@ const PricingPage = ({ sidebarOpen = false }) => {
           }}
         />
       ))}
-
       {/* Header */}
       <div style={{
         marginBottom: '60px',
@@ -618,7 +295,6 @@ const PricingPage = ({ sidebarOpen = false }) => {
           </div>
         </div>
       </div>
-
       {/* Main Content */}
       <div className="pricing-container" style={{
         maxWidth: '1400px',
@@ -629,9 +305,11 @@ const PricingPage = ({ sidebarOpen = false }) => {
         {/* Pricing Plans */}
         <div className="plans-grid" style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+          gridTemplateColumns: 'repeat(2, 1fr)',
           gap: '32px',
           marginBottom: '80px',
+          maxWidth: '800px', // Add max width to control card sizing
+          margin: '0 auto 80px auto',
         }}>
           {plans.map((plan) => (
             <div
@@ -710,7 +388,6 @@ const PricingPage = ({ sidebarOpen = false }) => {
                   </li>
                 ))}
               </ul>
-
               <button
                 className={`plan-button ${plan.popular ? 'primary' : 'secondary'}`}
                 onClick={() => {
@@ -728,7 +405,6 @@ const PricingPage = ({ sidebarOpen = false }) => {
             </div>
           ))}
         </div>
-
         {/* Features Comparison Table */}
         <div style={{ marginBottom: '80px' }}>
           <h2 style={{
@@ -780,7 +456,6 @@ const PricingPage = ({ sidebarOpen = false }) => {
             ))}
           </div>
         </div>
-
         {/* FAQ Section */}
         <div>
           <h2 style={{
@@ -821,7 +496,6 @@ const PricingPage = ({ sidebarOpen = false }) => {
             ))}
           </div>
         </div>
-
         {/* Call to Action */}
         <div style={{
           textAlign: 'center',
@@ -910,7 +584,6 @@ const PricingPage = ({ sidebarOpen = false }) => {
             </button>
           </div>
         </div>
-
         {/* Trust Indicators */}
         <div style={{
           marginTop: '60px',
@@ -951,5 +624,4 @@ const PricingPage = ({ sidebarOpen = false }) => {
     </div>
   );
 };
-
 export default PricingPage;

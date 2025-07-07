@@ -335,8 +335,8 @@ const LogoutConfirmationModal = ({ isOpen, onClose, onConfirm }) => {
 };
 
 // Constants
-const drawerWidth = 280;
-const collapsedDrawerWidth = 64;
+const drawerWidth = 220;
+const collapsedDrawerWidth = 60;
 
 // Sidebar Component
 const Sidebar = ({ open, onToggle }) => {
@@ -408,17 +408,17 @@ const getActiveItem = () => {
     overflow: 'hidden',
   };
 
-  const headerStyles = {
-    padding: '16px 20px',
+   const headerStyles = {
+    padding: isCollapsed ? '12px 8px' : '12px 16px', // Reduced padding
     borderBottom: '1px solid rgba(99, 102, 241, 0.2)',
     display: 'flex',
     alignItems: 'center',
     justifyContent: isCollapsed ? 'center' : 'space-between',
-    minHeight: '60px',
+    minHeight: '56px', // Reduced from 60 to 56
   };
 
   const logoStyles = {
-    fontSize: '1.25rem',
+    fontSize: '1.1rem',
     fontWeight: 'bold',
     color: '#ffffff',
     opacity: isCollapsed ? 0 : 1,
@@ -430,7 +430,7 @@ const getActiveItem = () => {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    width: '32px',
+    width: '28px',
     height: '32px',
     backgroundColor: 'rgba(99, 102, 241, 0.1)',
     border: 'none',
@@ -444,26 +444,26 @@ const getActiveItem = () => {
   const topSectionStyles = {
     display: 'flex',
     flexDirection: 'column',
-    gap: '4px',
-    padding: '16px 0',
+    gap: '2px',
+    padding: '12px 0',
     flex: 1,
   };
 
   const menuItemStyles = {
     display: 'flex',
     alignItems: 'center',
-    gap: isCollapsed ? '0' : '12px',
-    padding: isCollapsed ? '14px' : '12px 20px',
-    margin: isCollapsed ? '0 8px' : '0 16px',
+    gap: isCollapsed ? '0' : '10px',
+    padding: isCollapsed ? '10px' : '10px 16px',
+    margin: isCollapsed ? '0 6px' : '0 12px',
     backgroundColor: 'transparent',
     border: 'none',
-    borderRadius: '8px',
+    borderRadius: '6px',
     color: '#a1a1aa',
     cursor: 'pointer',
     transition: 'all 0.2s ease-in-out',
     justifyContent: isCollapsed ? 'center' : 'flex-start',
-    minHeight: '44px',
-    fontSize: '14px',
+    minHeight: '38px',
+    fontSize: '13px',
     fontWeight: '500',
     position: 'relative',
   };

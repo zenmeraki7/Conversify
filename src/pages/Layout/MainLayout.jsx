@@ -3,7 +3,7 @@ import Sidebar from "../../components/Sidebar";
 import { Outlet } from "react-router-dom";
 
 const MainLayout = () => {
-  const [sidebarOpen, setSidebarOpen] = useState(true); // Start expanded
+  const [sidebarOpen, setSidebarOpen] = useState(true);
 
   return (
     <div style={{ display: "flex" }}>
@@ -14,13 +14,13 @@ const MainLayout = () => {
       
       <main style={{
         flexGrow: 1,
-        // Remove marginLeft since Sidebar is positioned fixed
         transition: 'all 0.3s',
         background: '#111827',
         minHeight: '100vh',
         padding: '20px',
       }}>
-        <Outlet />
+        {/* Pass sidebarOpen to all child components */}
+        <Outlet context={{ sidebarOpen }} />
       </main>
     </div>
   );
