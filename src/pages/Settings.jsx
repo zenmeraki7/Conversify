@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { ChevronRightIcon, DataIcon, HelpIcon, LanguageIcon, NotificationIcon, PaletteIcon, SaveIcon, SecurityIcon, UserIcon } from '../components/Icons';
 import './Settings.css';
 import { useOutletContext } from 'react-router-dom';
+import { HeadphoneOff } from 'lucide-react';
 // Main Settings Page Component
 function SettingsPage ()  {
   const { sidebarOpen } = useOutletContext();
