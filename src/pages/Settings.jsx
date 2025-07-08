@@ -322,20 +322,20 @@ function SettingsPage ()  {
               <h3 className="setting-title">Help & Support</h3>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                 <div className="help-item">
-                  <h4 style={{ color: '#f8fafc', fontSize: '16px', margin: 0 }}>Documentation</h4>
-                  <p style={{ color: '#94a3b8', fontSize: '14px', margin: '4px 0 8px 0' }}>Browse our comprehensive guides and tutorials</p>
-                  <button className="help-button">View Docs</button>
+                  <h4 style={{ color: '#f8fafc', fontSize: '16px', margin: 0 }}>Know More About Us</h4>
+                  <p style={{ color: '#94a3b8', fontSize: '14px', margin: '4px 0 8px 0' }}>Browse other services from us</p>
+                  <button className="help-button"  onClick={() => window.open('https://zenmeraki.com/', '_blank')} >View </button>
                 </div>
                 <div className="help-item">
                   <h4 style={{ color: '#f8fafc', fontSize: '16px', margin: 0 }}>Contact Support</h4>
                   <p style={{ color: '#94a3b8', fontSize: '14px', margin: '4px 0 8px 0' }}>Get in touch with our support team</p>
-                  <button className="help-button">Contact Us</button>
+                  <button className="help-button"onClick={() => window.location.href = 'mailto:zenmerakihelp@gmail.com'}>Contact Us</button>
                 </div>
-                <div className="help-item">
+                {/* <div className="help-item">
                   <h4 style={{ color: '#f8fafc', fontSize: '16px', margin: 0 }}>Community</h4>
                   <p style={{ color: '#94a3b8', fontSize: '14px', margin: '4px 0 8px 0' }}>Join our community forum for discussions</p>
                   <button className="help-button">Join Community</button>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
@@ -470,7 +470,7 @@ function SettingsPage ()  {
           </div>
 
           {/* Settings Content */}
-          <div style={{ flex: 1, minHeight: '500px' }}>
+          <div style={{ flex: 1, height: '500px' }}>
             {renderSettingContent()}
 
             {/* Save Button */}
